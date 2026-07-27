@@ -1,4 +1,4 @@
-CONFIG_SOC_NRF52840=y
+CONFIG_SOC_SERIES_NRF52X=y
 
 #------------------------------
 # SPDX-License-Identifier: MIT
