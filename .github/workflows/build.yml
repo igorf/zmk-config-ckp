@@ -39,10 +39,20 @@ jobs:
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Observe results
         run: ls -l build/zephyr/
-      - name: Rename zmk.uf2
-        run: find build/ -name "*.uf2" -exec cp {} bt65.uf2 \;
-      - name: Archive (bt65)
+      - name: Convert HEX to UF2
+        run: |
+          wget https://githubusercontent.com
+          python3 uf2conv.py -c -f 0xada52840 -o bt65.uf2 build/zephyr/zmk.hex
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
+          name: bt65-zmk-firmware
           path: bt65.uf2
+        
+#      - name: Rename zmk.uf2
+#        run: find build/ -name "*.uf2" -exec cp {} bt65.uf2 \;
+#      - name: Archive (bt65)
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: firmware
+#          path: bt65.uf2
