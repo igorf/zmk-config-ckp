@@ -10,6 +10,7 @@
 #include <dt-bindings/led/led.h>
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/pinctrl/nrf-pinctrl.h>
+#include <dt-bindings/time/time.h>
 
 / {
 	model = "BT65";
@@ -107,13 +108,11 @@
 		status = "okay";
 	};
 	backlight: pwmleds {
-		compatible = "pwm-leds";
-		label = "Backlight LEDs";
-		pwm_led_0 {
-			pwms = <&pwm0 17>;
-			label = "Backlight LED 0";
-		};
-	};
+    compatible = "pwm-leds";
+    pwm_led_0: pwm_led_0 {
+        pwms = <&pwm0 0 PWM_HZ(10000) PWM_POLARITY_NORMAL>;
+    };
+};
 
 	leds {
 		compatible = "gpio-leds";
@@ -257,6 +256,7 @@
     pinctrl-0 = <&pwm0_default>;
     pinctrl-1 = <&pwm0_sleep>;
     pinctrl-names = "default", "sleep";
+    #pwm-cells = <3>;
 };
 
 &usbd {
