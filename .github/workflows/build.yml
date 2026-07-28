@@ -39,13 +39,13 @@ jobs:
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Observe results
         run: ls -l build/zephyr/
-      - name: Convert HEX to UF2
-        run: west sign -t uf2 -b bt65 -- -f 0xada52840 build/zephyr/zmk.hex bt65.uf2
+      - name: Rename HEX version of the firmware
+        run: cp build/zephyr/zmk.hex bt65.hex
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: bt65-zmk-firmware
-          path: bt65.uf2
+          name: bt65-zmk-firmware-hex
+          path: bt65.hex
         
 #      - name: Rename zmk.uf2
 #        run: find build/ -name "*.uf2" -exec cp {} bt65.uf2 \;
